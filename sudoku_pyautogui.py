@@ -6,12 +6,8 @@ from SudokuSolver import *
 from Sudoku import *
 
 def placeSolution(solved_board):
-    ##Flatten 2d array to 1d array
+    ## Flatten 2d array to 1d array
     solution = np.ravel(solved_board)
-
-    str_solution = []
-    for elem in solution:
-        str_solution.append(str(elem))
 
     counter = 0
     for i, num in enumerate(solution):
@@ -46,8 +42,9 @@ def main():
     solver = Sudoku(pre_sudoku_solver.getBoard())
     solver.solve()
 
-    #time.sleep(2)
-    #placeSolution(solver.getBoard())
+    time.sleep(2)
+    # Website tested is on sudoku.com
+    placeSolution(solver.getBoard())
     solver.show()
 
 if __name__ == "__main__":
