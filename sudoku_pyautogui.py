@@ -2,11 +2,9 @@ import pyautogui as pg
 import numpy as np
 import time
 
-from solver.SudokuPreSolver import *
-from solver.SudokuBacktrack import *
+from solver.SudokuSolver import SudokuSolver
 
 def placeSolution(solved_board):
-    ## Flatten 2d array to 1d array
     solution = np.ravel(solved_board)
 
     counter = 0
@@ -21,31 +19,30 @@ def placeSolution(solved_board):
             for i in range(8):
                 pg.hotkey("left")
 
-def main():
+def obtainBoardfromInput():
     board = []
     i = 0
 
     while (len(board) < 9):
-        ls = list(input(f"Row Number {i + 1}: "))
-        x = list(map (lambda x : int(x), ls))
+        row_list = list(input(f"Row Number {i + 1}: "))
+        int_row_list = list(map(lambda x : int(x), row_list))
 
         if(len(x) != 9):
+            print("Please enter a valid row value")
             continue
-        board.append(x)
+        board.append(int_row_list)
         i += 1
+    return board
     
-    print(board)
-
-    pre_sudoku_solver = SudokuPreSolver(board)
-    pre_sudoku_solver.solve()
-
-    solver = SudokuBacktrack(pre_sudoku_solver.board)
-    solver.solve()
-
+def main():
+    board = obtainBoardfromInput()
+    
+    sudoku_solver = SudokuSolver(board)
+    sudoku_solver.solve()
     time.sleep(2)
+    
     # Website tested is on sudoku.com
-    placeSolution(solver.board)
-    solver.show()
+    placeSolution(sudoku_solver.board)
 
 if __name__ == "__main__":
     main()

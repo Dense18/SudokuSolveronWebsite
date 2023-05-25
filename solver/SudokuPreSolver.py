@@ -1,4 +1,4 @@
-from Cell import *
+from model.Cell import *
 from solver.ISudokuSolver import ISudokuSolver
 
 class SudokuPreSolver(ISudokuSolver):

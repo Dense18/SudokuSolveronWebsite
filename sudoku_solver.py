@@ -10,8 +10,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 from solver.SudokuSolver import SudokuSolver
 
-##Website should be in WebSudoku.com
-def solveInWebSudoku(solved_board, driver):
+
+def placeSolution(solved_board, driver):
     for row_num in range(len(solved_board)):
         for col_num in range(len(solved_board[row_num])):
             string_id = f"f{row_num}{col_num}"
@@ -38,14 +38,8 @@ def initializeBoardfromWebSudoku(driver):
     return board
 
 def main(argv):
-    counter_limit = 0
     counter = 0
-
-    if (len(argv) == 1):
-        counter_limit = 1
-
-    if (len(argv) >= 2):
-        counter_limit = int(argv[1])
+    counter_limit = 1 if len(argv) == 1 else int(argv[1])
 
     url = "https://nine.websudoku.com/?level=2"
     # url = "https://www.websudoku.com/?level=2"
@@ -57,26 +51,24 @@ def main(argv):
     while counter < counter_limit:
         #driver.switch_to.parent_frame()
         #driver.switch_to.frame(0)
-
         time.sleep(2)
+        
         board = initializeBoardfromWebSudoku(driver)
-
         sudoku_solver = SudokuSolver(board)
         sudoku_solver.solve()
-        solveInWebSudoku(sudoku_solver.board, driver)
+        placeSolution(sudoku_solver.board, driver)
 
         try:
             new_game_button = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.NAME, "newgame"))
             )
-
             new_game_button.click()
+            
             counter += 1
-            #time.sleep(2)
 
-        except:
-            print("An error has occured while placing the solution")
-            break;
+        except Exception as e:
+            print(e)
+            break
     
     driver.quit()
     return
