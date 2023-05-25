@@ -102,9 +102,6 @@ class SudokuSolver:
                     print(self.board[i][j])
                 else:
                     print(str(self.board[i][j]) + " ", end="")
-    
-    def getBoard(self):
-        return self.board
             
 
 

@@ -39,7 +39,7 @@ def main():
     pre_sudoku_solver = SudokuSolver(board)
     pre_sudoku_solver.solve()
 
-    solver = Sudoku(pre_sudoku_solver.getBoard())
+    solver = Sudoku(pre_sudoku_solver.board)
     solver.solve()
 
     time.sleep(2)

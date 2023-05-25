@@ -11,7 +11,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from SudokuSolver import *
 from Sudoku import *
 
-PATH = "C:\Program Files (x86)\chromedriver.exe"
 
 ##Website should be in WebSudoku.com
 def solveInWebSudoku(solved_board, driver):
@@ -50,13 +49,12 @@ def main(argv):
     if (len(argv) >= 2):
         counter_limit = int(argv[1])
 
-    ##url = "https://nine.websudoku.com/?level=2"
-    url = "https://www.websudoku.com/?level=2"
+    url = "https://nine.websudoku.com/?level=2"
+    # url = "https://www.websudoku.com/?level=2"
 
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    #driver = webdriver.Chrome(PATH)
     driver.get(url)
-    driver.switch_to.frame(0)
+    # driver.switch_to.frame(0)
 
     while counter < counter_limit:
         #driver.switch_to.parent_frame()
@@ -67,10 +65,10 @@ def main(argv):
         pre_sudoku_solver = SudokuSolver(board)
         pre_sudoku_solver.solve()
 
-        sudoku = Sudoku(pre_sudoku_solver.getBoard())
+        sudoku = Sudoku(pre_sudoku_solver.board)
         sudoku.solve()
 
-        solveInWebSudoku(sudoku.getBoard(), driver)
+        solveInWebSudoku(sudoku.board, driver)
 
         try:
             new_game_button = WebDriverWait(driver, 10).until(
@@ -91,5 +89,4 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv)
-    #mainOfPyauto()
 
