@@ -2,8 +2,8 @@ import pyautogui as pg
 import numpy as np
 import time
 
-from SudokuPreSolver import *
-from Sudoku import *
+from solver.SudokuPreSolver import *
+from solver.SudokuBacktrack import *
 
 def placeSolution(solved_board):
     ## Flatten 2d array to 1d array
@@ -39,7 +39,7 @@ def main():
     pre_sudoku_solver = SudokuPreSolver(board)
     pre_sudoku_solver.solve()
 
-    solver = Sudoku(pre_sudoku_solver.board)
+    solver = SudokuBacktrack(pre_sudoku_solver.board)
     solver.solve()
 
     time.sleep(2)

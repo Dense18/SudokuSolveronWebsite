@@ -1,6 +1,10 @@
 from Cell import *
+from solver.ISudokuSolver import ISudokuSolver
 
-class SudokuPreSolver:
+class SudokuPreSolver(ISudokuSolver):
+    """
+    Sudoku solver class using custom rules and patterns. Note: Some cells may still be empty after using this solver.
+    """
     def __init__(self, board):
         self.board = board
         self.cells = [Cell(row_no, col_no, col) for row_no, row in enumerate(board) for col_no, col in enumerate(row)]

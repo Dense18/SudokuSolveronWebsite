@@ -8,9 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-from SudokuPreSolver import *
-from Sudoku import *
-
+from solver.SudokuSolver import SudokuSolver
 
 ##Website should be in WebSudoku.com
 def solveInWebSudoku(solved_board, driver):
@@ -62,14 +60,10 @@ def main(argv):
 
         time.sleep(2)
         board = initializeBoardfromWebSudoku(driver)
-        pre_sudoku_solver = SudokuPreSolver(board)
-        pre_sudoku_solver.solve()
 
-        sudoku = Sudoku(pre_sudoku_solver.board)
-        sudoku.solve()
-        
-        print(sudoku)
-        solveInWebSudoku(sudoku.board, driver)
+        sudoku_solver = SudokuSolver(board)
+        sudoku_solver.solve()
+        solveInWebSudoku(sudoku_solver.board, driver)
 
         try:
             new_game_button = WebDriverWait(driver, 10).until(

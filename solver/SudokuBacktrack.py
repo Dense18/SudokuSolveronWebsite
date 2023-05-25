@@ -1,4 +1,9 @@
-class Sudoku:
+from solver.ISudokuSolver import ISudokuSolver
+
+class SudokuBacktrack(ISudokuSolver):
+    """
+    Sudoku Solver class using backtracking
+    """
     def __init__(self, board):
         self.board = board
     
@@ -57,7 +62,6 @@ class Sudoku:
 
             for j in range(len(self.board[0])):
                 if j % 3 == 0 and j != 0:
-                    # print("| ", end="")
                     output += "| "
 
                 if j == 8:
