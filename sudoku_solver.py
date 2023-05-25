@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-from SudokuSolver import *
+from SudokuPreSolver import *
 from Sudoku import *
 
 
@@ -62,12 +62,13 @@ def main(argv):
 
         time.sleep(2)
         board = initializeBoardfromWebSudoku(driver)
-        pre_sudoku_solver = SudokuSolver(board)
+        pre_sudoku_solver = SudokuPreSolver(board)
         pre_sudoku_solver.solve()
 
         sudoku = Sudoku(pre_sudoku_solver.board)
         sudoku.solve()
-
+        
+        print(sudoku)
         solveInWebSudoku(sudoku.board, driver)
 
         try:
@@ -80,7 +81,7 @@ def main(argv):
             #time.sleep(2)
 
         except:
-            print("Error")
+            print("An error has occured while placing the solution")
             break;
     
     driver.quit()

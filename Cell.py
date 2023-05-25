@@ -1,4 +1,7 @@
 class Cell:
+    """
+        Class storing information on each cell of the Sudoku
+    """
     def __init__(self, row, col, value):
         self.row = row
         self.col = col

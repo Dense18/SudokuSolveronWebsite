@@ -1,13 +1,9 @@
 from Cell import *
 
-class SudokuSolver:
+class SudokuPreSolver:
     def __init__(self, board):
         self.board = board
-        self.cells = []
-        for row_no, row in enumerate(board):
-            for col_no, col in enumerate(row):
-                self.cells.append(Cell(row_no, col_no, col))
-        
+        self.cells = [Cell(row_no, col_no, col) for row_no, row in enumerate(board) for col_no, col in enumerate(row)]
         self.initializeOptions()
 
     def getCellsFromRow(self, row_no):
@@ -61,7 +57,6 @@ class SudokuSolver:
     def checkUniqueValueGroup(self, cell_group): 
         counts = [0] * 10
         
-        ##Try adding a hasp map here
         for cell in cell_group:
             for option in cell.options:
                 counts[option] += 1
@@ -80,29 +75,23 @@ class SudokuSolver:
                 if not self.checkUniqueValue():
                     break
     
-    def print(self):
-        last_cell_row_no = 0
-        for cell in self.cells:
-            if last_cell_row_no != cell.row:
-                print()
-            print(cell.value, end = " ")
-            last_cell_row_no = cell.row
-        print("\n- - - - - - - - -")
 
-    def show(self):
+    def __str__(self) -> str:
+        output = ""
         for i in range(len(self.board)):
             if i % 3 == 0 and i != 0:
-                print("- - - - - - - - - - - - - ")
+                output += "- - - - - - - - - - - - - \n"
 
             for j in range(len(self.board[0])):
                 if j % 3 == 0 and j != 0:
-                    print("| ", end="")
+                    # print("| ", end="")
+                    output += "| "
 
                 if j == 8:
-                    print(self.board[i][j])
+                    output += f"{self.board[i][j]}\n"
                 else:
-                    print(str(self.board[i][j]) + " ", end="")
-            
+                    output += f"{self.board[i][j]} "
+        return output
 
 
     

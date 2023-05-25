@@ -2,7 +2,7 @@ import pyautogui as pg
 import numpy as np
 import time
 
-from SudokuSolver import *
+from SudokuPreSolver import *
 from Sudoku import *
 
 def placeSolution(solved_board):
@@ -36,7 +36,7 @@ def main():
     
     print(board)
 
-    pre_sudoku_solver = SudokuSolver(board)
+    pre_sudoku_solver = SudokuPreSolver(board)
     pre_sudoku_solver.solve()
 
     solver = Sudoku(pre_sudoku_solver.board)
@@ -44,7 +44,7 @@ def main():
 
     time.sleep(2)
     # Website tested is on sudoku.com
-    placeSolution(solver.getBoard())
+    placeSolution(solver.board)
     solver.show()
 
 if __name__ == "__main__":

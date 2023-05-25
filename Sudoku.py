@@ -35,8 +35,8 @@ class Sudoku:
         pos = self.getEmptyPosition()
         if (pos == None):
             return True
-        else:
-            row, col = pos
+
+        row, col = pos
         
         for num in range(1,10):
             if self.isValid(num, pos):
@@ -49,17 +49,19 @@ class Sudoku:
         
         return False
     
-    #Print the board in a clear format
-    def show(self):
+    def __str__(self) -> str:
+        output = ""
         for i in range(len(self.board)):
             if i % 3 == 0 and i != 0:
-                print("- - - - - - - - - - - - - ")
+                output += "- - - - - - - - - - - - - \n"
 
             for j in range(len(self.board[0])):
                 if j % 3 == 0 and j != 0:
-                    print("| ", end="")
+                    # print("| ", end="")
+                    output += "| "
 
                 if j == 8:
-                    print(self.board[i][j])
+                    output += f"{self.board[i][j]}\n"
                 else:
-                    print(str(self.board[i][j]) + " ", end="")
+                    output += f"{self.board[i][j]} "
+        return output
