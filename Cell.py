@@ -6,9 +6,6 @@ class Cell:
         self.value = value
         self.options = self.initializeOptions()
     
-    def getOptions(self):
-        return self.options
-    
     def initializeOptions(self):
         return [] if self.value != 0 else [*range(1, 10)]
 
