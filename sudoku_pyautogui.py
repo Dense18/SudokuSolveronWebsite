@@ -8,16 +8,6 @@ def placeSolution(solved_board: list[list[int]]):
     solution = np.ravel(solved_board)
 
     counter = 0
-    # for i, num in enumerate(solution):
-    #     pg.press(str(num))
-    #     counter += 1
-
-    #     if(counter % 9!= 0):
-    #         pg.hotkey("right")
-    #     else:
-    #         pg.hotkey("down")
-    #         for i in range(8):
-    #             pg.hotkey("left")
     for num in solution:
         pg.press(str(num))
         counter += 1

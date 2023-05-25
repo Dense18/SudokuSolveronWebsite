@@ -77,7 +77,6 @@ def main(argv):
     
     driver.quit()
 
-
 if __name__ == "__main__":
     main(sys.argv)
 
