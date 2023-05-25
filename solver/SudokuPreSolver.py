@@ -5,21 +5,21 @@ class SudokuPreSolver(ISudokuSolver):
     """
     Sudoku solver class using custom rules and patterns. Note: Some cells may still be empty after using this solver.
     """
-    def __init__(self, board):
+    def __init__(self, board: list[list[int]]):
         self.board = board
         self.cells = [Cell(row_no, col_no, col) for row_no, row in enumerate(board) for col_no, col in enumerate(row)]
         self.initializeOptions()
 
-    def getCellsFromRow(self, row_no):
+    def getCellsFromRow(self, row_no: int) -> list[Cell]:
         return [cell for cell in self.cells if cell.row == row_no]
     
-    def getCellsFromCol(self, col_no):
+    def getCellsFromCol(self, col_no: int) -> list[Cell]:
         return [cell for cell in self.cells if cell.col == col_no]
     
-    def getCellsFromBox(self, box_no):
+    def getCellsFromBox(self, box_no: int) -> list[Cell]:
         return [cell for cell in self.cells if cell.box == box_no]
     
-    def getCellsFromCell(self, cell_arg):
+    def getCellsFromCell(self, cell_arg: Cell) -> list[Cell]:
         return [cell for cell in self.cells if cell.row == cell_arg.row or 
                                                cell.col == cell_arg.col or 
                                                cell.box == cell_arg.box]
@@ -27,28 +27,28 @@ class SudokuPreSolver(ISudokuSolver):
         for cell in self.cells:
             self.updateOptions(cell)
     
-    def updateOptions(self, cell_arg):
+    def updateOptions(self, cell_arg: Cell):
         for cell in self.getCellsFromCell(cell_arg):
             try:
                 cell.options.remove(cell_arg.value)
             except:
                 continue
 
-    def placeValue(self, cell, value):
+    def placeValue(self, cell: Cell, value: int):
         cell.value = value
         self.board[cell.row][cell.col] = value
 
         cell.options = []
         self.updateOptions(cell)
 
-    def checkUniqueOption(self):
+    def checkUniqueOption(self) -> bool:
         for cell in self.cells:
             if len(cell.options) == 1:
                 self.placeValue(cell, cell.options[0])
                 return True
         return False
     
-    def checkUniqueValue(self):
+    def checkUniqueValue(self) -> bool:
         for num in range(9):
             if self.checkUniqueValueGroup(self.getCellsFromRow(num)):
                 return True
@@ -58,7 +58,7 @@ class SudokuPreSolver(ISudokuSolver):
                 return True
         return False
     
-    def checkUniqueValueGroup(self, cell_group): 
+    def checkUniqueValueGroup(self, cell_group: list[Cell]) -> bool: 
         counts = [0] * 10
         
         for cell in cell_group:

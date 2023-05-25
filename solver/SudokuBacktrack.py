@@ -4,17 +4,17 @@ class SudokuBacktrack(ISudokuSolver):
     """
     Sudoku Solver class using backtracking
     """
-    def __init__(self, board):
+    def __init__(self, board: list[list[int]]):
         self.board = board
     
-    def getEmptyPosition(self):
+    def getEmptyPosition(self) -> (tuple[int, int] | None):
         for row in range(len(self.board)):
             for col in range(len(self.board[0])):
                 if (self.board[row][col] == 0):
                     return (row, col)
         return None
     
-    def isValid(self, num, pos):
+    def isValid(self, num: int, pos: int) -> bool:
          #Check for rows
         for i in range(len(self.board[0])):
             if (self.board[pos[0]][i] == num):
